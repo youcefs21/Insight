@@ -15,18 +15,52 @@ public class TreeFireGenerator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        x = 40;
+        x = 100;
         y = 100;
+        double growBy = 0;
+        
         allTrees = new GameObject[x, y];
         rend = new Renderer[x, y];
         fireprox = new int[x, y];
+        rnd = new System.Random();
         for (int i = 0; i < x; i++)
         {
+
+            /*
+            if (i <= x / 2)
+            {
+                growBy += 0.1;
+            }
+            else {
+                growBy -= 0.1;
+            }
+            */
+            growBy = 2*Mathf.Cos((float) i/10);
+            
+            
+            
             for (int j = 0; j < y; j++)
             {
-                Instantiate(myPrefab, new Vector3(i, 0.5f, j), Quaternion.identity);
+                //Instantiate(myPrefab, new Vector3(i, 0.5f, j), Quaternion.identity);
                 allTrees[i, j] = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                allTrees[i, j].transform.position = new Vector3(i, 0, j);
+                double yess = rnd.NextDouble();
+                yess -= 0.5 + growBy;
+                float h = 0;
+                h += (float)yess;
+                /*
+                if (i <= y / 2)
+                {
+                    h += (float) 0.1;
+                }
+                else {
+                    h -= (float) 0.1;
+                }
+                */
+                h += Mathf.Cos(j / 180) * 2;
+                
+
+
+                allTrees[i, j].transform.position = new Vector3(i, h, j);
                 
                 rend[i, j] = allTrees[i, j].GetComponent<Renderer>();
                 rend[i, j].sharedMaterial = mater[0];
@@ -34,7 +68,6 @@ public class TreeFireGenerator : MonoBehaviour
             }
         }
 
-        rnd = new System.Random();
 
 
     }
