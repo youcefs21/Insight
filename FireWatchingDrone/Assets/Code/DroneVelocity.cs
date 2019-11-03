@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class DroneVelocity : MonoBehaviour
 {
-
+   
+    
     //float x = 1;
     //float z = 1;
     int counter;
@@ -46,11 +47,18 @@ public class DroneVelocity : MonoBehaviour
         
         }
         */
+        
         counter++;
-        if (Time.deltaTime > 500 && Time.deltaTime < 680)
+
+
+        int start = 0;
+        
+            
+        if (start + 10 <= System.Environment.TickCount)
         {
-            transform.Rotate(0, -Time.deltaTime, 0);
+            transform.Rotate(0, -.1f, 0);
+            start = System.Environment.TickCount;
         }
-        transform.Translate(Time.deltaTime*5, 0, Time.deltaTime*0);
+         transform.Translate(.1f, 0, 0);
     }
 }

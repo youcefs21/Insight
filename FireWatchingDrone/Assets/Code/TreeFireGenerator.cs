@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public class TreeFireGenerator : MonoBehaviour
 {
     public GameObject[,] allTrees;
@@ -187,3 +189,19 @@ public class TreeFireGenerator : MonoBehaviour
 
     }
 }
+/*
+public class Stack{
+
+    private Object[] objects;
+    Stack() {
+
+    }
+    private void Grow() {
+        Object[] extraSpace = Object[this.objects.Length * 2];
+
+
+
+    }
+
+}
+*/
