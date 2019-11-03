@@ -8,57 +8,63 @@ public class DroneVelocity : MonoBehaviour
     
     //float x = 1;
     //float z = 1;
-    int counter;
+    Vector3 target;
+    int mode;
     // Start is called before the first frame update
     void Start()
     {
-        
+        mode = 0;
+        //target.x = 50;
+        //target.y = 0;
+        //target.z = 50;
     }
 
     // Update is called once per frame
     void Update()
     {
-        /*
-        counter++;
-        if (counter <= 100 && counter > 0)
+
+        for (int i = 0; i < TreeFireGenerator.x; i++)
         {
-            x += 0.01f;
-            z += 0.01f;
-        }
-        else if (counter <= 200 && counter > 100)
-        {
-            x += 0.01f;
-            z -= 0.01f;
-        }
-        else if (counter <= 300 && counter > 200)
-        {
-            x -= 0.01f;
-            z -= 0.01f;
+            for (int j = 0; j < TreeFireGenerator.y; j++)
+            {
+                if (TreeFireGenerator.onFirebool[i, j] == true)
+                {
+                    target = TreeFireGenerator.allTrees[i, j].transform.position;
+                    if (Vector3.Distance(transform.position, target) <= 20f)
+                    {
+                        //Debug.Log("There is a fire at " + target);
+                        mode = 1;
+                    }
+                }
+            }
 
         }
-        else if (counter <= 400 && counter > 300)
+
+        Vector3 target2 = new Vector3();
+        if (mode == 0)
         {
-            x -= 0.01f;
-            z += 0.01f;
-
-        }
-        else {
-            counter = 0;
-        
-        }
-        */
-        
-        counter++;
-
-
-        int start = 0;
-        
             
-        if (start + 10 <= System.Environment.TickCount)
-        {
-            transform.Rotate(0, -.1f, 0);
-            start = System.Environment.TickCount;
+            transform.Rotate(0, Time.deltaTime* 10f, 0);
+            transform.Translate(0, 0, -5f * Time.deltaTime);
         }
-         transform.Translate(.1f, 0, 0);
+        
+        if (mode == 1)
+        {
+            target2 = target;
+            mode = 2;
+        }
+        
+        if (mode == 2)
+        {
+
+            //if (Vector3.Distance(transform.position, target.position) > 0.001f)
+            //{
+            Debug.Log("target2" + target2);
+            transform.position = Vector3.MoveTowards(transform.position, target2, Time.deltaTime * 5f);
+            
+            //}
+            //else mode++;
+        }
+
     }
 }

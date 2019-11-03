@@ -6,14 +6,15 @@ using UnityEngine;
 
 public class TreeFireGenerator : MonoBehaviour
 {
-    public GameObject[,] allTrees;
+    public static GameObject[,] allTrees;
     public Material[] mater;
     Renderer[,] rend;
     System.Random rnd;
     public GameObject myPrefab;
     int[,] fireprox;
-    int x;
-    int y;
+    public static int x;
+    public static int y;
+    public static bool[,] onFirebool;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +26,7 @@ public class TreeFireGenerator : MonoBehaviour
         rend = new Renderer[x, y];
         fireprox = new int[x, y];
         rnd = new System.Random();
+        onFirebool = new bool[x,y];
         for (int i = 0; i < x; i++)
         {
 
@@ -123,6 +125,7 @@ public class TreeFireGenerator : MonoBehaviour
                 if (fireprox[i, j] == 5)
                 {
                     rend[i, j].sharedMaterial = mater[1];
+                    onFirebool[i, j] = true;
                 }
             }
 
@@ -156,7 +159,7 @@ public class TreeFireGenerator : MonoBehaviour
                 }
                 switch (count) {
                     case 0:
-                        fireprox[i, j] = rnd.Next(10000000);
+                        fireprox[i, j] = rnd.Next(1000000);
                         break;
                     case 1:
                         fireprox[i, j] = rnd.Next(100);
