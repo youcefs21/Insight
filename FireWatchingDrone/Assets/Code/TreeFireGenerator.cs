@@ -18,7 +18,7 @@ public class TreeFireGenerator : MonoBehaviour
         x = 100;
         y = 100;
         double growBy = 0;
-        
+        Debug.Log("xd");
         allTrees = new GameObject[x, y];
         rend = new Renderer[x, y];
         fireprox = new int[x, y];
@@ -67,8 +67,6 @@ public class TreeFireGenerator : MonoBehaviour
 
             }
         }
-
-
 
     }
     private GameObject Above (int x, int y){
@@ -156,7 +154,7 @@ public class TreeFireGenerator : MonoBehaviour
                 }
                 switch (count) {
                     case 0:
-                        fireprox[i, j] = rnd.Next(1000000);
+                        fireprox[i, j] = rnd.Next(10000000);
                         break;
                     case 1:
                         fireprox[i, j] = rnd.Next(100);
@@ -177,9 +175,7 @@ public class TreeFireGenerator : MonoBehaviour
 
                 count = 0;
 
-                
             }
-
 
         }
         CheckProxFire();
