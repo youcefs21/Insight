@@ -176,6 +176,8 @@ MonoBehaviour:
   mater:
   - {fileID: 2100000, guid: 4900d3e4800de5b45836eaa27a927ea6, type: 2}
   - {fileID: 2100000, guid: 40b321b51ce09be43a8f30b959dad36f, type: 2}
+  - {fileID: 2100000, guid: c344e9deb053a904f82798fda6ac1932, type: 2}
+  - {fileID: 2100000, guid: 7f42c2d515fce424cb7880b09a456f5a, type: 2}
   myPrefab: {fileID: 213555384}
 --- !u!4 &46141194
 Transform:
