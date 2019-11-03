@@ -4,61 +4,93 @@ using UnityEngine;
 
 public class DroneVelocity : MonoBehaviour
 {
-   
-    
-    //float x = 1;
-    //float z = 1;
+    int mode;
+    int start;
+
+    float droneSpeed =.3f;
+    // 0: Search
+    // 1: GoTo
+    // 2: Stay (spin)
+
+
+
     int counter;
+    Vector3 firePlacement;
     // Start is called before the first frame update
     void Start()
     {
-        
+        mode = 0;
+        start = 0;
+
     }
 
     // Update is called once per frame
+
+
     void Update()
     {
-        /*
-        counter++;
-        if (counter <= 100 && counter > 0)
-        {
-            x += 0.01f;
-            z += 0.01f;
-        }
-        else if (counter <= 200 && counter > 100)
-        {
-            x += 0.01f;
-            z -= 0.01f;
-        }
-        else if (counter <= 300 && counter > 200)
-        {
-            x -= 0.01f;
-            z -= 0.01f;
 
-        }
-        else if (counter <= 400 && counter > 300)
+        // Shearch
+        if (mode == 0)
         {
-            x -= 0.01f;
-            z += 0.01f;
 
-        }
-        else {
-            counter = 0;
-        
-        }
-        */
-        
-        counter++;
+            // Spin Move.
+            // this.start = System.Environment.TickCount;
+            if (this.start + 10 <= System.Environment.TickCount)
+            {
+                transform.Rotate(0, -.1f, 0);
+                transform.Translate(droneSpeed, 0, 0);
+                this.start = System.Environment.TickCount;
+            }
 
 
-        int start = 0;
-        
-            
-        if (start + 10 <= System.Environment.TickCount)
-        {
-            transform.Rotate(0, -.1f, 0);
-            start = System.Environment.TickCount;
+
+            // get fires
+            Vector3[] vector3s = TreeFireGenerator.stack.GetObjects();
+
+            // compire each fire
+            for (int i = 0; i < vector3s.Length; i++)
+            {
+                if (vector3s[i].x != 0 && vector3s[i].z != 0)
+                {
+
+
+                    if (Vector3.Distance(this.transform.position, vector3s[i]) <= 30)
+                    {
+                        firePlacement = vector3s[i];
+                        Debug.Log("Camera: (" + this.transform.position.x + ", " + this.transform.position.z + ")");
+                        Debug.Log("There: (" + firePlacement.x + "," + firePlacement.z + ")");
+                        Debug.Log(Vector3.Distance(this.transform.position, vector3s[i]) + " <= 30");
+                        mode++;
+
+                    }
+                }
+
+            }
+
         }
-         transform.Translate(.1f, 0, 0);
+        else if (mode == 1)
+        {
+
+
+            if (start + 10 <= System.Environment.TickCount)
+            {
+                // firePlacement.z = this.transform.position.z;
+                transform.position = Vector3.MoveTowards(transform.position, firePlacement, droneSpeed);
+                int start = System.Environment.TickCount;
+            }
+            // transform.Translate(.1f, 0, 0);
+
+
+
+        }
+        else if (mode == 2) {
+
+            if (start + 10 <= System.Environment.TickCount) {
+                int start = System.Environment.TickCount;
+                transform.Rotate(0, -.2f, 0);
+            }
+
+        }
     }
 }
