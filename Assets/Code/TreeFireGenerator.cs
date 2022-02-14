@@ -84,6 +84,14 @@ public class TreeFireGenerator : MonoBehaviour
             }
         }
 
+        // initial fire
+        int fireInitX = rnd.Next(x);
+        int fireInitY = rnd.Next(y);
+
+        rend[fireInitX, fireInitY].sharedMaterial = mater[1];
+        onFirebool[fireInitX, fireInitY] = true;
+
+
     }
     private GameObject Above (int x, int y){
 
@@ -158,8 +166,8 @@ public class TreeFireGenerator : MonoBehaviour
         }
     }
 
-            // Update is called once per frame
-            void Update()
+    // Update is called once per frame
+    void Update()
     {
        
         int count = 0;
@@ -191,7 +199,6 @@ public class TreeFireGenerator : MonoBehaviour
                     switch (count)
                     {
                         case 0:
-                            fireprox[i, j] = rnd.Next(1000000);
                             break;
                         case 1:
                             fireprox[i, j] = rnd.Next(100);
